@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mood-to-Music 🎵 — Single Page App</title>
+  <style>
+    body{margin:0;font-family:sans-serif;background:linear-gradient(135deg,#1e3a8a,#9333ea);color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+    .app{max-width:600px;width:100%;background:rgba(255,255,255,0.1);padding:20px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.4)}
+    h1{text-align:center;margin:0 0 10px;font-size:26px}
+    p{text-align:center;color:#d1d5db;margin:0 0 20px}
+    .moods{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    .mood-btn{font-size:28px;padding:10px 14px;border:none;border-radius:10px;cursor:pointer;background:#ffffff22;transition:0.2s}
+    .mood-btn:hover{transform:scale(1.1);background:#ffffff44}
+    .playlist{margin-top:20px}
+    .song{background:#ffffff22;padding:10px 14px;border-radius:8px;margin-bottom:10px}
+    .song strong{display:block;font-size:15px}
+    footer{text-align:center;font-size:13px;color:#d1d5db;margin-top:20px}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>Mood-to-Music 🎶</h1>
+    <p>Select your mood & get a matching playlist!</p>
+    <div class="moods">
+      <button class="mood-btn" data-mood="happy">😊</button>
+      <button class="mood-btn" data-mood="sad">😢</button>
+      <button class="mood-btn" data-mood="energetic">⚡</button>
+      <button class="mood-btn" data-mood="chill">😌</button>
+      <button class="mood-btn" data-mood="romantic">❤️</button>
+    </div>
+    <div class="playlist" id="playlist">
+      <p style="text-align:center;color:#9ca3af">Your playlist will appear here...</p>
+    </div>
+    <footer>Made for Hackathon — Creative Demo App</footer>
+  </div>
+
+  <script>
+    const playlists = {
+      happy:[
+        {title:"Good Vibes Only", artist:"Sunshine Beats"},
+        {title:"Smile Everyday", artist:"Joy Crew"},
+        {title:"Dance with Me", artist:"The Groovers"}
+      ],
+      sad:[
+        {title:"Tears in Rain", artist:"Blue Sky"},
+        {title:"Lonely Nights", artist:"Heart Strings"},
+        {title:"Missing You", artist:"Echo Dreams"}
+      ],
+      energetic:[
+        {title:"Power Up!", artist:"ElectroWave"},
+        {title:"Run Faster", artist:"Beat Rush"},
+        {title:"Never Stop", artist:"Hype Nation"}
+      ],
+      chill:[
+        {title:"Calm Breeze", artist:"LoFi Vibes"},
+        {title:"Night Coffee", artist:"Dream Keys"},
+        {title:"Ocean Waves", artist:"Relax Co."}
+      ],
+      romantic:[
+        {title:"Love Story", artist:"Heartbeats"},
+        {title:"Forever With You", artist:"Sweet Soul"},
+        {title:"Moonlight Date", artist:"Romance Crew"}
+      ]
+    };
+
+    document.querySelectorAll('.mood-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const mood = btn.dataset.mood;
+        const list = playlists[mood];
+        const container = document.getElementById('playlist');
+        container.innerHTML = `<h3 style='margin-bottom:10px'>${mood.toUpperCase()} Playlist 🎵</h3>`;
+        list.forEach(song=>{
+          const div = document.createElement('div');
+          div.className = 'song';
+          div.innerHTML = `<strong>${song.title}</strong><span>${song.artist}</span>`;
+          container.appendChild(div);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
